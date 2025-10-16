@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             BigDecimal s1 = new BigDecimal(n1);
             BigDecimal s2 = new BigDecimal(n2);
             BigDecimal rta = s1.multiply(s2);
-            textView6.setText("Rta Multiplicacion: " + rta.toPlainString());
+            textView6.setText("Rta Producto: " + rta.toPlainString());
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Entrada inválida.", Toast.LENGTH_SHORT).show();
         }
