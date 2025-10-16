@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #c88cdc;}
+.s1 { color: #afb9c3;}
+.s2 { color: #96be78;}
+.s3 { color: #36beff;}
+</style>
+</head>
+<body bgcolor="#17233d">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.appsebas2;</span>
+
+<span class="s0">import </span><span class="s1">android.os.Bundle;</span>
+<span class="s0">import </span><span class="s1">androidx.activity.EdgeToEdge;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity;</span>
+<span class="s0">import </span><span class="s1">androidx.core.graphics.Insets;</span>
+<span class="s0">import </span><span class="s1">androidx.core.view.ViewCompat;</span>
+<span class="s0">import </span><span class="s1">androidx.core.view.WindowInsetsCompat;</span>
+<span class="s0">import </span><span class="s1">android.view.inputmethod.InputMethodManager;</span>
+<span class="s0">import </span><span class="s1">android.view.View;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText;</span>
+<span class="s0">import </span><span class="s1">android.widget.Button;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView;</span>
+<span class="s0">import </span><span class="s1">android.content.Context;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast;</span>
+<span class="s0">import </span><span class="s1">java.math.BigDecimal;</span>
+<span class="s0">import </span><span class="s1">java.math.RoundingMode;</span>
+
+<span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+    <span class="s0">private </span><span class="s1">TextView textView4, textView5, textView6, textView7;</span>
+    <span class="s0">private </span><span class="s1">EditText plain_text_input, plain_text_input2;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState);</span>
+        <span class="s1">EdgeToEdge.enable(</span><span class="s0">this</span><span class="s1">);</span>
+        <span class="s1">setContentView(R.layout.activity_main);</span>
+
+        <span class="s1">plain_text_input = findViewById(R.id.plain_text_input);</span>
+        <span class="s1">plain_text_input2 = findViewById(R.id.plain_text_input2);</span>
+        <span class="s1">Button btnRTA = findViewById(R.id.btnRTA);</span>
+        <span class="s1">textView4 = findViewById(R.id.textView4);</span>
+        <span class="s1">textView5 = findViewById(R.id.textView5);</span>
+        <span class="s1">textView6 = findViewById(R.id.textView6);</span>
+        <span class="s1">textView7 = findViewById(R.id.textView7);</span>
+        <span class="s1">btnRTA.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View v) {</span>
+                <span class="s1">hideKeyboard();</span>
+                <span class="s1">sumar();</span>
+                <span class="s1">restar();</span>
+                <span class="s1">producto();</span>
+                <span class="s1">division();</span>
+            <span class="s1">}</span>
+        <span class="s1">});</span>
+        <span class="s1">ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -&gt; {</span>
+            <span class="s1">Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());</span>
+            <span class="s1">v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);</span>
+            <span class="s0">return </span><span class="s1">insets;</span>
+        <span class="s1">});</span>
+    <span class="s1">}</span>
+    <span class="s0">private void </span><span class="s1">sumar(){</span>
+        <span class="s1">String n1 = plain_text_input.getText().toString().trim();</span>
+        <span class="s1">String n2 = plain_text_input2.getText().toString().trim();</span>
+
+        <span class="s0">if </span><span class="s1">(n1.isEmpty() || n2.isEmpty()){</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this</span><span class="s1">, </span><span class="s2">&quot;Favor ingresar ambos numeros.&quot;</span><span class="s1">,Toast.LENGTH_SHORT).show();</span>
+            <span class="s0">return</span><span class="s1">;</span>
+        <span class="s1">}</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">BigDecimal s1 = </span><span class="s0">new </span><span class="s1">BigDecimal(n1);</span>
+            <span class="s1">BigDecimal s2 = </span><span class="s0">new </span><span class="s1">BigDecimal(n2);</span>
+            <span class="s1">BigDecimal rta = s1.add(s2);</span>
+            <span class="s1">textView4.setText(</span><span class="s2">&quot;Rta: &quot; </span><span class="s1">+ rta.toPlainString());</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(NumberFormatException e) {</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this</span><span class="s1">, </span><span class="s2">&quot;Entrada inválida.&quot;</span><span class="s1">, Toast.LENGTH_SHORT).show();</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">private void </span><span class="s1">restar(){</span>
+        <span class="s1">String n1 = plain_text_input.getText().toString().trim();</span>
+        <span class="s1">String n2 = plain_text_input2.getText().toString().trim();</span>
+
+        <span class="s0">if </span><span class="s1">(n1.isEmpty() || n2.isEmpty()){</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this</span><span class="s1">, </span><span class="s2">&quot;Favor ingresar ambos numeros.&quot;</span><span class="s1">,Toast.LENGTH_SHORT).show();</span>
+            <span class="s0">return</span><span class="s1">;</span>
+        <span class="s1">}</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">BigDecimal s1 = </span><span class="s0">new </span><span class="s1">BigDecimal(n1);</span>
+            <span class="s1">BigDecimal s2 = </span><span class="s0">new </span><span class="s1">BigDecimal(n2);</span>
+            <span class="s1">BigDecimal rta = s1.subtract(s2);</span>
+            <span class="s1">textView5.setText(</span><span class="s2">&quot;Rta: &quot; </span><span class="s1">+ rta.toPlainString());</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(NumberFormatException e) {</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this</span><span class="s1">, </span><span class="s2">&quot;Entrada inválida.&quot;</span><span class="s1">, Toast.LENGTH_SHORT).show();</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">private void </span><span class="s1">division(){</span>
+        <span class="s1">String n1 = plain_text_input.getText().toString().trim();</span>
+        <span class="s1">String n2 = plain_text_input2.getText().toString().trim();</span>
+
+        <span class="s0">if </span><span class="s1">(n1.isEmpty() || n2.isEmpty()){</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this</span><span class="s1">, </span><span class="s2">&quot;Favor ingresar ambos numeros.&quot;</span><span class="s1">,Toast.LENGTH_SHORT).show();</span>
+            <span class="s0">return</span><span class="s1">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s0">if </span><span class="s1">(n2.equals(</span><span class="s2">&quot;0&quot;</span><span class="s1">)) {</span>
+                <span class="s1">Toast.makeText(</span><span class="s0">this</span><span class="s1">, </span><span class="s2">&quot;No se puede dividir entre 0.&quot;</span><span class="s1">, Toast.LENGTH_SHORT).show();</span>
+                <span class="s0">return</span><span class="s1">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">BigDecimal s1 = </span><span class="s0">new </span><span class="s1">BigDecimal(n1);</span>
+            <span class="s1">BigDecimal s2 = </span><span class="s0">new </span><span class="s1">BigDecimal(n2);</span>
+            <span class="s1">BigDecimal rta = s1.divide(s2, </span><span class="s3">2</span><span class="s1">, RoundingMode.HALF_UP);</span>
+            <span class="s1">textView7.setText(</span><span class="s2">&quot;Rta: &quot; </span><span class="s1">+ rta.toPlainString());</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(NumberFormatException e) {</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this</span><span class="s1">, </span><span class="s2">&quot;Operación inválida.&quot;</span><span class="s1">, Toast.LENGTH_SHORT).show();</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">private void </span><span class="s1">producto(){</span>
+        <span class="s1">String n1 = plain_text_input.getText().toString().trim();</span>
+        <span class="s1">String n2 = plain_text_input2.getText().toString().trim();</span>
+
+        <span class="s0">if </span><span class="s1">(n1.isEmpty() || n2.isEmpty()){</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this</span><span class="s1">, </span><span class="s2">&quot;Favor ingresar ambos numeros.&quot;</span><span class="s1">,Toast.LENGTH_SHORT).show();</span>
+            <span class="s0">return</span><span class="s1">;</span>
+        <span class="s1">}</span>
+        <span class="s0">try </span><span class="s1">{</span>
+            <span class="s1">BigDecimal s1 = </span><span class="s0">new </span><span class="s1">BigDecimal(n1);</span>
+            <span class="s1">BigDecimal s2 = </span><span class="s0">new </span><span class="s1">BigDecimal(n2);</span>
+            <span class="s1">BigDecimal rta = s1.multiply(s2);</span>
+            <span class="s1">textView6.setText(</span><span class="s2">&quot;Rta: &quot; </span><span class="s1">+ rta.toPlainString());</span>
+        <span class="s1">} </span><span class="s0">catch </span><span class="s1">(NumberFormatException e) {</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this</span><span class="s1">, </span><span class="s2">&quot;Entrada inválida.&quot;</span><span class="s1">, Toast.LENGTH_SHORT).show();</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">private void </span><span class="s1">hideKeyboard() {</span>
+        <span class="s1">View view = </span><span class="s0">this</span><span class="s1">.getCurrentFocus();</span>
+        <span class="s0">if </span><span class="s1">(view != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);</span>
+            <span class="s1">imm.hideSoftInputFromWindow(view.getWindowToken(), </span><span class="s3">0</span><span class="s1">);</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
