@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             BigDecimal s1 = new BigDecimal(n1);
             BigDecimal s2 = new BigDecimal(n2);
             BigDecimal rta = s1.subtract(s2);
-            textView5.setText("Rta resta: " + rta.toPlainString());
+            textView5.setText("Rta Resta: " + rta.toPlainString());
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Entrada inválida.", Toast.LENGTH_SHORT).show();
         }
