@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         plain_text_input = findViewById(R.id.plain_text_input);
         plain_text_input2 = findViewById(R.id.plain_text_input2);
+
         Button btnRTA = findViewById(R.id.btnRTA);
         textView4 = findViewById(R.id.textView4);
         textView5 = findViewById(R.id.textView5);
