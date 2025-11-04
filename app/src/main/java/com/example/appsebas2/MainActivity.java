@@ -1,5 +1,6 @@
 package com.example.appsebas2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,10 +26,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
         plain_text_input = findViewById(R.id.plain_text_input);
         plain_text_input2 = findViewById(R.id.plain_text_input2);
-
         Button btnRTA = findViewById(R.id.btnRTA);
         textView4 = findViewById(R.id.textView4);
         textView5 = findViewById(R.id.textView5);
@@ -42,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
                 restar();
                 producto();
                 division();
+            }
+        });
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                startActivity(intent);
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
