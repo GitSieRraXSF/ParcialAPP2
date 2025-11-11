@@ -45,6 +45,7 @@ public class LoginJava extends AppCompatActivity {
                 String user = editTextText4.getText().toString();
                 String pass = editTextTextPassword2.getText().toString();
                 users1.agregarAlFinal(user, pass);
+                Toast.makeText(LoginJava.this, "Usuario Agregado!", Toast.LENGTH_LONG).show();
             }
         });
     }
