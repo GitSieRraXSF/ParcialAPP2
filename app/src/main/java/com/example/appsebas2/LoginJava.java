@@ -1,8 +1,10 @@
 package com.example.appsebas2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,6 +37,7 @@ public class LoginJava extends AppCompatActivity {
                 } else {
                     Toast.makeText(LoginJava.this, "Usuario invalido", Toast.LENGTH_SHORT).show();
                 }
+                hideKeyboard();
             }
         });
 
@@ -46,7 +49,16 @@ public class LoginJava extends AppCompatActivity {
                 String pass = editTextTextPassword2.getText().toString();
                 users1.agregarAlFinal(user, pass);
                 Toast.makeText(LoginJava.this, "Usuario Agregado!", Toast.LENGTH_LONG).show();
+                hideKeyboard();
             }
         });
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
