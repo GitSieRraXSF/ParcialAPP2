@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginJava extends AppCompatActivity {
-
     EditText editTextText4, editTextTextPassword2;
-    private final String User = "Sierra1";
-    private final String Pass = "Number80";
+    ListaUsuarios users1 = new ListaUsuarios();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +27,24 @@ public class LoginJava extends AppCompatActivity {
             public void onClick(View v) {
                 String user = editTextText4.getText().toString();
                 String pass = editTextTextPassword2.getText().toString();
-                if (user.equals(User) && pass.equals(Pass)) {
+                if (users1.equalUser(user, pass)) {
                     Intent intent = new Intent(LoginJava.this, MenuActivity.class);
                     intent.putExtra("Username", user);
                     startActivity(intent);
                     finish();
+                } else {
+                    Toast.makeText(LoginJava.this, "Usuario invalido", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        Button button6 = findViewById(R.id.button6);
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user = editTextText4.getText().toString();
+                String pass = editTextTextPassword2.getText().toString();
+                users1.agregarAlFinal(user, pass);
             }
         });
     }
